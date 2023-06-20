@@ -6,7 +6,7 @@ To start:
 
 ```console
 ~$ docker load < hasura-image-arm64.tar.gz
-~$ docker load < weaviate-gdc-image.tar.gz
+~$ docker load < weaviate-gdc-image-arm64.tar.gz
 ~$ docker compose up
 ```
 

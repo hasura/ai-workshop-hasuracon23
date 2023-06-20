@@ -10,7 +10,7 @@ services:
       POSTGRES_DB: metadata
   weaviate-gdc:
     restart: always
-    image: weaviate_gdc/hasuracon23:1
+    image: weaviate_gdc/hasuracon23:2
     ports:
       - "8100:8100"
   graphql-engine:
