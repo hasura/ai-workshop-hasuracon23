@@ -10,11 +10,7 @@ def handle_insert(row, client):
     # In reality you would follow the URL from row['url']
     content = "dummy content"
     gql_query = gql("""
-<<<<<<< HEAD
             mutation insertItem($id: String!, $content: text!) {
-=======
-            mutation insertItem($id: uuid!, $content: text!) {
->>>>>>> dac0c0c (Bug fixes during workshop)
                 insert_Resume_one(object: { application_id: $id, content: $content }) {
                     id
                 }
@@ -27,11 +23,7 @@ def handle_insert(row, client):
 def handle_delete(row, client):
     id = row['id']
     gql_query = gql("""
-<<<<<<< HEAD
             mutation deleteItem($id: String!) {
-=======
-            mutation deleteItem($id: uuid!) {
->>>>>>> dac0c0c (Bug fixes during workshop)
                 delete_Resume(where: {application_id: { _eq: $id } }) {
                     affected_rows
                 }
