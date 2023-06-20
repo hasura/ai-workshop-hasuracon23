@@ -10,8 +10,8 @@ def handle_insert(row, client):
     # In reality you would follow the URL from row['url']
     content = "dummy content"
     gql_query = gql("""
-            mutation insertItem($id: uuid!, $content: text!) {
-                insert_DocumentChunk_one(object: { application_id: $id, content: $content }) {
+            mutation insertItem($id: String!, $content: text!) {
+                insert_Resume_one(object: { application_id: $id, content: $content }) {
                     id
                 }
             }
@@ -23,8 +23,8 @@ def handle_insert(row, client):
 def handle_delete(row, client):
     id = row['id']
     gql_query = gql("""
-            mutation deleteItem($id: uuid!) {
-                delete_DocumentChunk(where: {application_id: { _eq: $id } }) {
+            mutation deleteItem($id: String!) {
+                delete_Resume(where: {application_id: { _eq: $id } }) {
                     affected_rows
                 }
             }

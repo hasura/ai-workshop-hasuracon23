@@ -34,3 +34,5 @@ services:
     build: ./handlers
     ports:
       - "8400:8400"
+    environment:
+      OPENAI_APIKEY: <enter_your_key>

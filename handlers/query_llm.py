@@ -35,7 +35,7 @@ def get_prompt(request):
     result = client.execute(gql_query, variable_values={
                             'user_query': user_query})
 
-    resumes = result['data']['Resume']
+    resumes = result['Resume']
 
     prompt = """
     You are a helpful Question Answering bot. 
@@ -55,9 +55,10 @@ def get_prompt(request):
 
     return prompt
 
+
 def query_llm(request, headers):
     llm = OpenAI(model="text-davinci-003",
                  openai_api_key=os.environ['OPENAI_APIKEY'])
     prompt = get_prompt(request)
     chain = LLMChain(llm=llm, prompt=PromptTemplate.from_template(prompt))
-    return str(chain.run())
+    return str(chain.run({}))
