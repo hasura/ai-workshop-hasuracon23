@@ -26,7 +26,7 @@ def get_prompt(request):
     # Send the GraphQL request
     gql_query = gql("""
             query getItems($user_query: text!) {
-                Resume(where: { vector: { near_text: $user_query}}, limit: 5) {
+                Resume(where: { vector: { near_text: $user_query}}, limit: 3) {
                     content
                     application_id
                 }
@@ -34,16 +34,16 @@ def get_prompt(request):
         """)
     result = client.execute(gql_query, variable_values={
                             'user_query': user_query})
-
-    resumes = result['Resume']
+    # resumes = result['data']['Resume']
+    resumes = result["Resume"]
 
     prompt = """
     You are a helpful Question Answering bot. 
-    You are provided with contetn from a few resumes content and a question.
+    You are provided with content from a few resumes and a question.
     Answer the question based on the content of the resumes.
     Provide your reasoning.
 
-    Question: """
+    Question: {question}"""
     prompt += user_query
 
     for resume in resumes:
@@ -61,4 +61,6 @@ def query_llm(request, headers):
                  openai_api_key=os.environ['OPENAI_APIKEY'])
     prompt = get_prompt(request)
     chain = LLMChain(llm=llm, prompt=PromptTemplate.from_template(prompt))
-    return str(chain.run({}))
+    return str(chain.run(
+        {"question":request["input"]["user_query"]}
+        ))
