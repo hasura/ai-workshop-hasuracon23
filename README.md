@@ -8,12 +8,14 @@ To start:
 ~$ docker load < hasura-image-arm64.tar.gz
 ~$ docker load < weaviate-gdc-image-arm64.tar.gz
 ~$ docker compose up
+# Set OPENAI_APIKEY environment variable
+~$ python3 handlers/server.py
 ```
 
 This will bring up
 - Hasura console at `localhost:8080`
-- Postgres with `metadata` database at `host.docker.internal:5432`
-- Weaviate GDC agent at `host.docker.internal:8100`
-- Action and Event Trigger handlers at `host.docker.internal:8400`
+- Postgres with `metadata` database at `localhost:5432`
+- Weaviate GDC agent at `localhost:8100`
+- Action and Event Trigger handlers at `localhost:8400`
 
-You need update docker-compose.yaml with your OPENAI key to use in the LLM code.
+Note: You can alternatively modify docker-compose.yaml and uncomment the `handlers` container to bring up python handlers directly using Docker
