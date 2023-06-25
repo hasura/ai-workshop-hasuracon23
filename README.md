@@ -2,6 +2,8 @@
 
 Currently only ARM64 images of Hasura and Weaviate are available
 
+Note: After cloning the image, you are required to execute `git lfs pull` to download the complete image. `brew install git-lfs` if you don't have that installed already.
+
 To start:
 
 ```console
