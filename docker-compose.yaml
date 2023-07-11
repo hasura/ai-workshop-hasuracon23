@@ -15,7 +15,7 @@ services:
       - "8100:8100"
   graphql-engine:
     restart: always
-    image: hasura/graphql-engine:12345.ubuntu.arm64
+    image: hasura/graphql-engine:12345.ubuntu.${ARCH}
     ports:
       - "8080:8080"
     depends_on:
