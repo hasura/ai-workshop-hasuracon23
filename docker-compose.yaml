@@ -29,10 +29,10 @@ services:
       HASURA_GRAPHQL_ADMIN_SECRET: secret
       WEAVIATE_GDC_HOST: weaviate-gdc:8100
       WEAVIATE_DB_HOST: weaviate:8080
-  # handlers:
-  #   restart: always
-  #   build: ./handlers
-  #   ports:
-  #     - "8400:8400"
-  #   environment:
-  #     OPENAI_APIKEY: <enter_your_key>
+  handlers:
+    restart: always
+    build: ./tutorials/HRTool/handlers
+    ports:
+      - "8400:8400"
+    environment:
+      OPENAI_APIKEY: <OPENAI_APIKEY>

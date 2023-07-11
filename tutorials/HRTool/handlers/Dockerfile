@@ -1,19 +1,31 @@
 # start by pulling the python image
-FROM python:3.9-alpine
+FROM python:3.11-slim as python-base
 
-# copy the requirements file into the image
-COPY ./requirements.txt /app/requirements.txt
+ENV POETRY_VERSION=1.4.2\
+    POETRY_HOME="/opt/poetry" \
+    POETRY_VIRTUALENVS_IN_PROJECT=true \
+    POETRY_NO_INTERACTION=1 \
+    PYSETUP_PATH="/app" \
+    VENV_PATH="/app/.venv" 
+
+# Prepend poetry and venv to path
+ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
+
+FROM python-base as builder-base
+RUN apt-get update \
+    && apt-get install --no-install-recommends -y \
+    curl \
+    build-essential
+
+# install poetry
+RUN pip3 install poetry
 
 # switch working directory
-WORKDIR /app
+WORKDIR $PYSETUP_PATH
+COPY ./app /app
+COPY ./pyproject.toml /app/
 
-# install the dependencies and packages in the requirements file
-RUN pip install -r requirements.txt
+RUN poetry config virtualenvs.create false
+RUN poetry install --no-dev -vvv
 
-# copy every content from the local file to the image
-COPY . /app
-
-# configure the container to run in an executed manner
-ENTRYPOINT [ "python" ]
-
-CMD [ "server.py" ]
+CMD [ "python","server.py" ]

@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "handlers"
+version = "0.1.0"
+description = ""
+authors = ["Hasura"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+Flask = "2.3.2"
+requests = "2.31.0"
+langchain = "0.0.229"
+requests-toolbelt = "^1.0.0"
+gql = "^3.4.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
