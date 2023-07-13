@@ -8,7 +8,7 @@ from langchain.prompts import PromptTemplate
 from langchain.chat_models import ChatOpenAI
 
 # GraphQL endpoint URL
-GRAPHQL_ENDPOINT = "http://localhost:8080/v1/graphql"
+GRAPHQL_ENDPOINT = "http://graphql-engine:8080/v1/graphql"
 
 
 def get_prompt(request):

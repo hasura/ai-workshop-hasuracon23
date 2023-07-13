@@ -2,15 +2,15 @@ from gql import gql, Client
 from gql.transport.requests import RequestsHTTPTransport
 
 # GraphQL endpoint URL
-GRAPHQL_ENDPOINT = "http://localhost:8080/v1/graphql"
+GRAPHQL_ENDPOINT = "http://graphql-engine:8080/v1/graphql"
 
 
 def handle_insert(row, client):
-    id = row['id']
+    id = str(row['id'])
     # In reality you would follow the URL from row['url']
     content = "dummy content"
     gql_query = gql("""
-            mutation insertItem($id: String!, $content: text!) {
+            mutation insertItem($id: text!, $content: text!) {
                 insert_Resume_one(object: { application_id: $id, content: $content }) {
                     id
                 }
@@ -23,7 +23,7 @@ def handle_insert(row, client):
 def handle_delete(row, client):
     id = row['id']
     gql_query = gql("""
-            mutation deleteItem($id: String!) {
+            mutation deleteItem($id: text!) {
                 delete_Resume(where: {application_id: { _eq: $id } }) {
                     affected_rows
                 }
