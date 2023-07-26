@@ -55,10 +55,15 @@ def get_prompt(request):
 
     return prompt
 
+def get_openai_key(headers):
+    openai_api_key = headers.get("OPENAI_APIKEY")
+    if openai_api_key is None:
+        openai_api_key = os.environ['OPENAI_APIKEY']
+    return openai_api_key
 
 def query_llm(request, headers):
     llm = OpenAI(model="text-davinci-003",
-                 openai_api_key=os.environ['OPENAI_APIKEY'])
+                 openai_api_key=get_openai_key(headers))
     prompt = get_prompt(request)
     chain = LLMChain(llm=llm, prompt=PromptTemplate.from_template(prompt))
     return str(chain.run(
